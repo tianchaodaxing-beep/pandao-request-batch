@@ -1,0 +1,24 @@
+name: 功能检查
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        python: ['3.11', '3.14']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: 安装与开发验证
+        run: python -m pip install . pytest
+      - name: 执行功能和数据核对
+        run: python -m pytest -q
+      - name: 核对运行依赖
+        run: python -m pip check

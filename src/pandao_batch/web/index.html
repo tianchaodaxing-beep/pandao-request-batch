@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="task-token" content="__TOKEN__">
+  <title>PANDAO 网页批量查询</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="mast"><div class="brand"><span class="brandmark" aria-hidden="true">↗</span><strong>PANDAO</strong><span>网页批量查询</span></div><span class="local">本机运行</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">重复查询，一次运行</p><h1>选好来源，整批读完。</h1><p class="lead">导入一次网页查询记录，填入查询清单，自动翻页并导出结果。</p></div><button id="demo" class="secondary">载入模拟演示</button></section>
+    <div class="route" aria-label="操作顺序"><span><b>1</b> 选择读取来源</span><i aria-hidden="true">→</i><span><b>2</b> 填入查询清单</span><i aria-hidden="true">→</i><span><b>3</b> 运行与导出</span></div>
+    <p id="notice" class="notice" role="status" aria-live="polite">先导入浏览记录，或载入模拟演示。</p>
+    <div class="workgrid">
+      <section class="sheet"><div class="sectionhead"><span class="step">1</span><h2>读取来源</h2></div>
+        <label class="upload" for="har"><span class="uploadicon" aria-hidden="true">↑</span><strong>导入 HAR 浏览记录</strong><span>选择浏览器导出的查询记录</span><input id="har" type="file" accept=".har,application/json"></label>
+        <p class="privacy">浏览记录可能含登录信息，请只在本机保存。</p>
+        <label for="source">可用来源</label><select id="source" disabled><option>还没有读取来源</option></select>
+        <p id="sourceInfo" class="sourceinfo">导入后可选择已捕获的读取结果。</p>
+        <div class="formgrid"><div><label for="records">记录位置</label><select id="records" disabled></select></div><div><label for="total">来源总量</label><select id="total" disabled></select></div><div><label for="page">翻页选项</label><select id="page" disabled></select></div><div><label for="identity">唯一编号</label><select id="identity" disabled></select></div></div>
+      </section>
+      <section class="sheet"><div class="sectionhead"><span class="step">2</span><h2>查询清单</h2><label class="filebutton" for="jobs">导入 CSV<input id="jobs" type="file" accept=".csv,text/csv"></label></div>
+        <label for="query">每一行代表一次查询</label><textarea id="query" spellcheck="false" placeholder="导入来源后，按提示填写列名与查询内容。"></textarea>
+        <p id="queryHint" class="hint">第一行为列名，其余为查询条件。</p>
+        <div class="formgrid settings"><div><label for="maxPages">每项最多页数</label><input id="maxPages" type="number" min="1" max="10000" value="100"></div><div><label for="interval">查询间隔（秒）</label><input id="interval" type="number" min="0" max="60" step="0.1" value="0.2"></div></div>
+        <div class="actions"><button id="run" class="primary" disabled>开始批量查询 <span aria-hidden="true">→</span></button><button id="stop" class="secondary" disabled>停止</button></div>
+      </section>
+    </div>
+    <section class="result"><div class="sectionhead"><span class="step">3</span><h2>读取结果</h2><span id="badge" class="badge">尚未开始</span></div><div class="resultbody"><div class="counts"><div><strong id="recordCount">0</strong><span>条记录</span></div><div><strong id="taskCount">0</strong><span>项查询完成</span></div><div><strong id="pageCount">0</strong><span>页已保存</span></div></div><div class="resultactions"><button id="resume" class="secondary" disabled>续跑上次任务</button><button id="download" class="primary" disabled>下载结果包</button></div></div><p id="resultText" class="hint">完成后可下载表格、逐条记录与中文结论。</p></section>
+    <footer>支持已捕获的 GET 读取请求。登录过期或来源改变时，请重新导出浏览记录。</footer>
+  </main>
+</body>
+</html>
