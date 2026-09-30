@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import datetime
 import io
 import json
+from .i18n import write_summary
 import math
 import os
 from pathlib import Path
@@ -250,6 +251,7 @@ def run(template, jobs, out, *, limits=None, resume=False, progress=None, stop=N
                           seconds=round(time.monotonic() - started, 3), completed_at=datetime.datetime.now().astimezone().isoformat(),
                           total_checked=bool(template["total_pointer"]) and all(x["done"] and x["total"] == result["per_task"].get(k, 0) for k, x in state["tasks"].items()))
             atomic_json(out / "结论.json", result)
+            write_summary(out, result)
             lines = ["本轮结论：" + result["status"], f"查询：{result['completed_tasks']} / {result['tasks']} 项完成",
                      f"保存页面：{result['pages']} 页；导出：{result['records']} 条；重复：{result['duplicates']} 条",
                      "导出记录数核对：通过", "来源总量核对：" + ("通过" if result["total_checked"] else "没有全部通过或来源未提供总量"),

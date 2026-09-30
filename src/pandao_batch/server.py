@@ -94,7 +94,7 @@ class Workspace:
                 raise TaskError("还没有可以导出的结果")
             stream = io.BytesIO()
             with zipfile.ZipFile(stream, "w", zipfile.ZIP_DEFLATED) as archive:
-                for name in ["查询结果.csv", "查询结果.jsonl", "结论.txt", "结论.json"]:
+                for name in ["查询结果.csv", "查询结果.jsonl", "结论.txt", "结论.json", "Summary.en.md"]:
                     archive.write(self.result_path / name, name)
             return stream.getvalue()
 
@@ -142,7 +142,7 @@ class Handler(BaseHTTPRequestHandler):
             else:
                 self.reply({"error": "页面不存在"}, status=404)
             return
-        static = {"/": ("index.html", "text/html; charset=utf-8"), "/app.js": ("app.js", "text/javascript; charset=utf-8"), "/style.css": ("style.css", "text/css; charset=utf-8")}
+        static = {"/": ("index.html", "text/html; charset=utf-8"), "/i18n.js": ("i18n.js", "text/javascript; charset=utf-8"), "/app.js": ("app.js", "text/javascript; charset=utf-8"), "/style.css": ("style.css", "text/css; charset=utf-8")}
         if path not in static or self.headers.get("Host") != f"127.0.0.1:{self.server.server_address[1]}":
             self.reply({"error": "页面不存在"}, status=404)
             return

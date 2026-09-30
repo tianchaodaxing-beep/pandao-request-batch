@@ -1,5 +1,6 @@
 """中文命令行入口。"""
 import argparse
+from .i18n import Parser, configure, t, write_summary
 from pathlib import Path
 import sys
 
@@ -9,7 +10,9 @@ from .har import TaskError, load_har, public_choice, strict_json, template_for
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="把网页查询变成参数表驱动的批量读取")
+    argv = configure(argv)
+    parser = Parser(description="把网页查询变成参数表驱动的批量读取")
+    parser.add_argument("--lang", choices=["zh", "en"], default="zh", help="Display language: zh or en")
     parser.add_argument("--version", action="version", version=__version__)
     actions = parser.add_subparsers(dest="action", required=True)
     inspect = actions.add_parser("inspect", help="查看浏览记录中的可用读取来源")
@@ -58,22 +61,22 @@ def main(argv=None):
             with args.out.open("x", encoding="utf-8") as stream:
                 import json
                 stream.write(json.dumps(template, ensure_ascii=False, indent=2) + "\n")
-            print("读取配置已保存；可能含登录信息，请只保存在本机。")
+            print(t("读取配置已保存；可能含登录信息，请只保存在本机。"))
         elif args.action == "run":
             template = strict_json(args.template.read_text(encoding="utf-8-sig"))
             jobs = csv_jobs(args.jobs.read_text(encoding="utf-8-sig"))
             limits = Limits(**{name: getattr(args, name) for name in ["start_page", "max_pages", "max_records", "timeout", "max_seconds", "retries", "interval"]})
             result = run(template, jobs, args.out, limits=limits, resume=args.resume)
-            print((args.out / "结论.txt").read_text(encoding="utf-8"))
+            print(t((args.out / "结论.txt").read_text(encoding="utf-8")))
             return 0 if result["status"] == "完成" else 2
         elif args.action == "demo":
             from .demo import demo
             demo(args.out)
-            print((args.out / "批量结果/结论.txt").read_text(encoding="utf-8"))
+            print(t((args.out / "批量结果/结论.txt").read_text(encoding="utf-8")))
         else:
             from .server import serve
             serve(args.port, args.workdir, args.open_browser)
         return 0
     except (TaskError, OSError) as error:
-        print("本轮未完成：" + str(error), file=sys.stderr)
+        print(t("本轮未完成：" + str(error)), file=sys.stderr)
         return 2

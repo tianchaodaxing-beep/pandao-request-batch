@@ -1,5 +1,7 @@
 # PANDAO 网页批量查询
 
+简体中文 · [English](README.en.md)
+
 把网页里一次查询的读取请求，变成参数表驱动的批量任务。自动翻页、保存进度、有限重试，输出表格和中文结论。
 
 例如在目录网站上按类别查资料：先在网页完成一次查询，导出浏览记录，再把要查的类别填进参数表。本工具直接读取对应数据，逐页保存，不需要每个类别重新点页面。
@@ -7,8 +9,8 @@
 ## 下载与打开
 
 - [源码](https://github.com/tianchaodaxing-beep/pandao-request-batch)
-- [下载 0.1.0](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/download/v0.1.0/pandao-request-batch-v0.1.0.zip)
-- [版本说明](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/tag/v0.1.0)
+- [下载 0.1.1](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/download/v0.1.1/pandao-request-batch-v0.1.1.zip)
+- [版本说明](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/tag/v0.1.1)
 
 需要 Python 3.11 或更高版本。解压后，Windows 双击 `打开网页批量查询.cmd`。其他系统在项目目录运行：
 

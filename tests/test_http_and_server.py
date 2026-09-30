@@ -135,7 +135,8 @@ def test_local_web_page_and_complete_task(tmp_path):
         content, headers = api("/api/export")
         assert headers["Content-Type"] == "application/zip"
         with zipfile.ZipFile(io.BytesIO(content)) as archive:
-            assert set(archive.namelist()) == {"查询结果.csv", "查询结果.jsonl", "结论.txt", "结论.json"}
+            assert set(archive.namelist()) == {"查询结果.csv", "查询结果.jsonl", "结论.txt", "结论.json", "Summary.en.md"}
+            assert "Exported records: 444" in archive.read("Summary.en.md").decode("utf-8")
             assert json.loads(archive.read("结论.json"))["total_checked"]
     finally:
         server.shutdown()
