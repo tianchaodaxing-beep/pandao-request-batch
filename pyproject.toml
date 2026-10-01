@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pandao-request-batch"
-version = "0.1.1"
+version = "0.1.2"
 description = "把网页读取请求变成参数表驱动的批量查询与导出"
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
-authors = [{name = "PANDAO"}]
+authors = [{name = "PANDAO", email = "tianchaodaxing@gmail.com"}]
 dependencies = []
 
 [project.scripts]

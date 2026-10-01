@@ -9,8 +9,8 @@
 ## 下载与打开
 
 - [源码](https://github.com/tianchaodaxing-beep/pandao-request-batch)
-- [下载 0.1.1](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/download/v0.1.1/pandao-request-batch-v0.1.1.zip)
-- [版本说明](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/tag/v0.1.1)
+- [下载 0.1.1](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/download/v0.1.2/pandao-request-batch-v0.1.1.zip)
+- [版本说明](https://github.com/tianchaodaxing-beep/pandao-request-batch/releases/tag/v0.1.2)
 
 需要 Python 3.11 或更高版本。解压后，Windows 双击 `打开网页批量查询.cmd`。其他系统在项目目录运行：
 
@@ -93,3 +93,7 @@ python 运行模拟演示.py
 python -m pip install . pytest
 python -m pytest -q
 ```
+
+## Contact
+
+Project enquiries and collaboration: [tianchaodaxing@gmail.com](mailto:tianchaodaxing@gmail.com)
